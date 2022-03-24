@@ -1,22 +1,11 @@
 import React from 'react';
 
-import { Category, Article } from '../../utils/types/productList';
-import './ProductList.css';
-import { formatter } from "../../utils/helpers/format"
+import { Category } from '../../utils/types/productList';
+import classes from './ProductList.module.css';
+import ArticleCard from "../ArticleCard"
 
 type State = {
   categories: Category[];
-};
-
-export var ArticleCard = ({ article }: { article: Article }) => {
-  return (
-    <div className={'article'}>
-      <img src={article.images[0].path} />
-      <div>{article.name}</div>
-      <div>{formatter.format(article.prices.regular.value / 100)}</div>
-      <section role="button">Add to cart</section>
-    </div>
-  )
 };
 
 class ArticleList extends React.Component {
@@ -25,7 +14,7 @@ class ArticleList extends React.Component {
   };
 
   componentDidMount() {
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
 
     xhr.open('POST', '/graphql');
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -65,7 +54,7 @@ class ArticleList extends React.Component {
 
     xhr.onload = () => {
       if (xhr.status === 200) {
-        var response = JSON.parse(xhr.response);
+        let response = JSON.parse(xhr.response);
 
         this.setState({ categories: response.data.categories });
       }
@@ -73,20 +62,20 @@ class ArticleList extends React.Component {
   }
 
   render() {
-    var articles = this.state.categories.map((category) => {
+    const articles = this.state.categories.map((category) => {
       return category.categoryArticles.articles.map((article) => {
         return <ArticleCard article={article} />;
       });
     });
 
     return (
-      <div className={'page'}>
-        <div className={'header'}>
+      <div className={classes.page}>
+        <div className={classes.header}>
           <strong>home24</strong>
-          <input placeholder={'Search'} />
+          <input placeholder='Search' />
         </div>
 
-        <div className={'sidebar'}>
+        <div className={classes.sidebar}>
           <h3>Kategorien</h3>
           {this.state.categories.length ? (
             <ul>
@@ -103,7 +92,7 @@ class ArticleList extends React.Component {
           )}
         </div>
 
-        <div className={'content'}>
+        <div className={classes.content}>
           {this.state.categories.length ? (
             <h1>
               {this.state.categories[0].name}
@@ -112,10 +101,10 @@ class ArticleList extends React.Component {
           ) : (
             'Loading...'
           )}
-          <div className={'articles'}>{articles}</div>
+          <div className={classes.articles}>{articles}</div>
         </div>
 
-        <div className={'footer'}>
+        <div className={classes.footer}>
           Alle Preise sind in Euro (€) inkl. gesetzlicher Umsatzsteuer und Versandkosten.
         </div>
       </div>
@@ -123,7 +112,7 @@ class ArticleList extends React.Component {
   }
 }
 
-var PLP = () => {
+const PLP = () => {
   return <ArticleList />;
 };
 
