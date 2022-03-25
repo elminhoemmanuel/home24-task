@@ -1,119 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Category } from '../../utils/types/productList';
 import classes from './ProductList.module.css';
-import ArticleCard from "../ArticleCard"
+import { getCategory } from "../../utils/services/ProductList";
+import Navbar from '../Navbar';
+import Sidebar from '../Sidebar';
+import ArticleList from '../ArticleList';
+import Footer from '../Footer';
 
-type State = {
-  categories: Category[];
-};
+const ArticleListPage = () =>{
 
-class ArticleList extends React.Component {
-  state: State = {
-    categories: [],
-  };
+    const [categories, setCategories] = useState<Category[]>([]);
 
-  componentDidMount() {
-    const xhr = new XMLHttpRequest();
-
-    xhr.open('POST', '/graphql');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-
-    xhr.send(JSON.stringify({
-      query: `{
-        categories(ids: "156126", locale: de_DE) {
-          name
-          articleCount
-          childrenCategories {
-            name
-            urlPath
-          }
-          categoryArticles(first: 50) {
-            articles {
-              name
-              variantName
-              prices {
-                currency
-                regular {
-                  value
-                }
-              }
-              images(
-                format: WEBP
-                maxWidth: 200
-                maxHeight: 200
-                limit: 1
-              ) {
-                path
-              }
-            }
-          }
+    const getCategories = async () =>{
+        try {
+            const response:any = await getCategory();
+            setCategories(response?.data.data.categories);
+        } catch (error) {
         }
-      }`,
-    }));
-
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        let response = JSON.parse(xhr.response);
-
-        this.setState({ categories: response.data.categories });
-      }
     }
-  }
 
-  render() {
-    const articles = this.state.categories.map((category) => {
-      return category.categoryArticles.articles.map((article) => {
-        return <ArticleCard article={article} />;
-      });
-    });
+    useEffect(() => {
+        getCategories()
+    }, [])
 
     return (
-      <div className={classes.page}>
-        <div className={classes.header}>
-          <strong>home24</strong>
-          <input placeholder='Search' />
-        </div>
+        <div className={classes.page}>
 
-        <div className={classes.sidebar}>
-          <h3>Kategorien</h3>
-          {this.state.categories.length ? (
-            <ul>
-              {this.state.categories[0].childrenCategories.map(({ name, urlPath }) => {
-                return (
-                  <li>
-                    <a href={`/${urlPath}`}>{name}</a>
-                  </li>
-                );
-              })}
-            </ul>
-          ) : (
-            'Loading...'
-          )}
-        </div>
+            <Navbar />
 
-        <div className={classes.content}>
-          {this.state.categories.length ? (
-            <h1>
-              {this.state.categories[0].name}
-              <small> ({this.state.categories[0].articleCount})</small>
-            </h1>
-          ) : (
-            'Loading...'
-          )}
-          <div className={classes.articles}>{articles}</div>
-        </div>
+            <Sidebar categories={categories} />
 
-        <div className={classes.footer}>
-          Alle Preise sind in Euro (€) inkl. gesetzlicher Umsatzsteuer und Versandkosten.
+            <ArticleList categories={categories} />
+
+            <Footer />
+            
         </div>
-      </div>
     );
-  }
+    
 }
 
-const PLP = () => {
-  return <ArticleList />;
-};
-
-export default PLP;
+export default ArticleListPage;
