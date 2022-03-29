@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`On render, check that Sidebar list is rendered with correctly 1`] = `
+<div
+  class="flex items-center justify-center py-6"
+>
+  <button
+    class="block text-hmred"
+  >
+    See More
+  </button>
+</div>
+`;

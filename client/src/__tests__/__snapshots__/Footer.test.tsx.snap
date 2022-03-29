@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`On render, check that Footer is rendered correctly 1`] = `
+<div>
+  <button
+    class="text-sm rounded text-white p-3 cursor-pointer bg-hmred hover:bg-orange-500 undefined"
+  >
+    Add to cart
+  </button>
+</div>
+`;
+
+exports[`On render, check that Primary button list is rendered correctly 1`] = `
+<div>
+  <button
+    class="text-sm rounded text-white p-3 cursor-pointer bg-hmred hover:bg-orange-500 undefined"
+  >
+    Add to cart
+  </button>
+</div>
+`;

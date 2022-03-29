@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`On render, check that Sidebar list is rendered correctly 1`] = `
+<div
+  class="fixed hidden md:block md:absolute top-0 left-0 md:top-20 w-72 z-20 pl-6 md:pl-8 pr-3 bg-white h-screen shadow md:shadow-none"
+>
+  <div
+    class="pt-6 md:pt-0 pb-6 flex items-center justify-between"
+  >
+    <h3
+      class="font-bold text-2xl"
+      data-testid="header"
+    >
+      Kategorien
+    </h3>
+  </div>
+  <ul
+    class=""
+  >
+    <li
+      class="py-3 cursor-pointer text-sm hover:text-hmred"
+      data-testid="category-name"
+    >
+      <a
+        href="/kategorie/wohnzimmermoebel/"
+      >
+        Wohnzimmer
+      </a>
+    </li>
+    <li
+      class="py-3 cursor-pointer text-sm hover:text-hmred"
+      data-testid="category-name"
+    >
+      <a
+        href="/kategorie/schlafzimmermoebel/"
+      >
+        Schlafzimmer
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`On render, check that Sidebar list is rendered with correctly 1`] = `
+<div
+  class="fixed md:hidden md:absolute top-0 left-0 md:top-20 w-72 z-20 pl-6 md:pl-8 pr-3 bg-white h-screen shadow md:shadow-none"
+>
+  <div
+    class="pt-6 md:pt-0 pb-6 flex items-center justify-between"
+  >
+    <h3
+      class="font-bold text-2xl"
+      data-testid="header"
+    >
+      Kategorien
+    </h3>
+    <button
+      class="block md:hidden text-black hover:text-hmred"
+    >
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 18L18 6M6 6l12 12"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  </div>
+  <ul
+    class=""
+    data-testid="list"
+  >
+    <li
+      class="py-3 cursor-pointer text-sm hover:text-hmred"
+    >
+      <a
+        href="/kategorie/wohnzimmermoebel/"
+      >
+        Wohnzimmer
+      </a>
+    </li>
+    <li
+      class="py-3 cursor-pointer text-sm hover:text-hmred"
+    >
+      <a
+        href="/kategorie/wohnzimmermoebel/"
+      >
+        Wohnzimmer
+      </a>
+    </li>
+  </ul>
+</div>
+`;
